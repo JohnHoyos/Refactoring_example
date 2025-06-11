@@ -52,20 +52,30 @@ namespace ToDo
             {
                 Console.WriteLine("Ingrese el número de la tarea a remover: ");
                 // Show current taks
-                ShowAllTasks();;
+                ShowAllTasks(); ;
 
                 string ItemTaskToDeleteSelected = Console.ReadLine();
                 // Remove one position
                 int ItemTaskSelectedConvertedInt = Convert.ToInt32(ItemTaskToDeleteSelected) - 1;
-                if (ItemTaskSelectedConvertedInt > -1 && TaskList.Count > 0)
+
+                if (ItemTaskSelectedConvertedInt > (TaskList.Count - 1) || ItemTaskSelectedConvertedInt < 0)
                 {
+                    Console.WriteLine("Numero de tarea fuera de rango");
+                }
+                else
+                {
+                    if (ItemTaskSelectedConvertedInt > -1 && TaskList.Count > 0)
+                    {
                         string TaskToDelete = TaskList[ItemTaskSelectedConvertedInt];
                         TaskList.RemoveAt(ItemTaskSelectedConvertedInt);
                         Console.WriteLine("Tarea " + TaskToDelete + " eliminada");
+                    }
                 }
             }
             catch (Exception)
             {
+                Console.WriteLine("Ha ocurrido un error al eliminar la tarea");
+
             }
         }
 
@@ -75,11 +85,19 @@ namespace ToDo
             {
                 Console.WriteLine("Ingrese el nombre de la tarea: ");
                 string TaskNametoAdd = Console.ReadLine();
-                TaskList.Add(TaskNametoAdd);
-                Console.WriteLine("Tarea registrada");
+                if (TaskNametoAdd == "")
+                {
+                    Console.WriteLine("Campo vacio, debe ingresar una tarea valida");
+                }
+                else
+                {
+                    TaskList.Add(TaskNametoAdd);
+                    Console.WriteLine("Tarea registrada");
+                }
             }
             catch (Exception)
             {
+                Console.WriteLine("Error inesperado en registro tarea");
             }
         }
 
