@@ -57,14 +57,11 @@ namespace ToDo
                 string ItemTaskToDeleteSelected = Console.ReadLine();
                 // Remove one position
                 int ItemTaskSelectedConvertedInt = Convert.ToInt32(ItemTaskToDeleteSelected) - 1;
-                if (ItemTaskSelectedConvertedInt > -1)
+                if (ItemTaskSelectedConvertedInt > -1 && TaskList.Count > 0)
                 {
-                    if (TaskList.Count > 0)
-                    {
                         string TaskToDelete = TaskList[ItemTaskSelectedConvertedInt];
                         TaskList.RemoveAt(ItemTaskSelectedConvertedInt);
                         Console.WriteLine("Tarea " + TaskToDelete + " eliminada");
-                    }
                 }
             }
             catch (Exception)
@@ -99,11 +96,9 @@ namespace ToDo
         }
         public static void ShowAllTasks()
         {
-            Console.WriteLine("----------------------------------------");
-                for (int indexTaskList = 0; indexTaskList < TaskList.Count; indexTaskList++)
-                {
-                    Console.WriteLine((indexTaskList + 1) + ". " + TaskList[indexTaskList]);
-                }
+                Console.WriteLine("----------------------------------------");
+                var indexTask = 0;
+                TaskList.ForEach(p => Console.WriteLine(++indexTask + ". " + p));                          
                 Console.WriteLine("----------------------------------------");
         }
     }
