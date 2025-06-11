@@ -5,28 +5,28 @@ namespace ToDo
 {
     internal class Program
     {
-        public static List<string> TL { get; set; }
+        public static List<string> TaskList { get; set; }
 
         static void Main(string[] args)
         {
-            TL = new List<string>();
-            int variable = 0;
+            TaskList = new List<string>();
+            int menuSelected = 0;
             do
             {
-                variable = ShowMainMenu();
-                if (variable == 1)
+                menuSelected = ShowMainMenu();
+                if (menuSelected == 1)
                 {
                     ShowMenuAdd();
                 }
-                else if (variable == 2)
+                else if (menuSelected == 2)
                 {
-                    ShowMenuDos();
+                    ShowMenuRemove();
                 }
-                else if (variable == 3)
+                else if (menuSelected == 3)
                 {
-                    ShowMenuTres();
+                    ShowMenuTaskList();
                 }
-            } while (variable != 4);
+            } while (menuSelected != 4);
         }
         /// <summary>
         /// Show the main menu 
@@ -42,32 +42,32 @@ namespace ToDo
             Console.WriteLine("4. Salir");
 
             // Read line
-            string line = Console.ReadLine();
-            return Convert.ToInt32(line);
+            string lineRead = Console.ReadLine();
+            return Convert.ToInt32(lineRead);
         }
 
-        public static void ShowMenuDos()
+        public static void ShowMenuRemove()
         {
             try
             {
                 Console.WriteLine("Ingrese el número de la tarea a remover: ");
                 // Show current taks
-                for (int i = 0; i < TL.Count; i++)
+                for (int TaskItemPosition = 0; TaskItemPosition < TaskList.Count; TaskItemPosition++)
                 {
-                    Console.WriteLine((i + 1) + ". " + TL[i]);
+                    Console.WriteLine((TaskItemPosition + 1) + ". " + TaskList[TaskItemPosition]);
                 }
                 Console.WriteLine("----------------------------------------");
 
-                string line = Console.ReadLine();
+                string ItemTaskToDeleteSelected = Console.ReadLine();
                 // Remove one position
-                int indexToRemove = Convert.ToInt32(line) - 1;
-                if (indexToRemove > -1)
+                int ItemTaskSelectedConvertedInt= Convert.ToInt32(ItemTaskToDeleteSelected) - 1;
+                if (ItemTaskSelectedConvertedInt > -1)
                 {
-                    if (TL.Count > 0)
+                    if (TaskList.Count > 0)
                     {
-                        string task = TL[indexToRemove];
-                        TL.RemoveAt(indexToRemove);
-                        Console.WriteLine("Tarea " + task + " eliminada");
+                        string TaskToDelete = TaskList[ItemTaskSelectedConvertedInt];
+                        TaskList.RemoveAt(ItemTaskSelectedConvertedInt);
+                        Console.WriteLine("Tarea " + TaskToDelete + " eliminada");
                     }
                 }
             }
@@ -81,8 +81,8 @@ namespace ToDo
             try
             {
                 Console.WriteLine("Ingrese el nombre de la tarea: ");
-                string task = Console.ReadLine();
-                TL.Add(task);
+                string TaskNametoAdd = Console.ReadLine();
+                TaskList.Add(TaskNametoAdd);
                 Console.WriteLine("Tarea registrada");
             }
             catch (Exception)
@@ -90,18 +90,18 @@ namespace ToDo
             }
         }
 
-        public static void ShowMenuTres()
+        public static void ShowMenuTaskList()
         {
-            if (TL == null || TL.Count == 0)
+            if (TaskList == null || TaskList.Count == 0)
             {
                 Console.WriteLine("No hay tareas por realizar");
             } 
             else
             {
                 Console.WriteLine("----------------------------------------");
-                for (int i = 0; i < TL.Count; i++)
+                for (int indexTaskList = 0; indexTaskList < TaskList.Count; indexTaskList++)
                 {
-                    Console.WriteLine((i + 1) + ". " + TL[i]);
+                    Console.WriteLine((indexTaskList + 1) + ". " + TaskList[indexTaskList]);
                 }
                 Console.WriteLine("----------------------------------------");
             }
